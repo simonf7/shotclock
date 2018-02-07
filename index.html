@@ -1,0 +1,180 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Shot Clock</title>
+            <link rel="stylesheet" type="text/css" href="shotclock.css">
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+            <!--[if IE]>
+                <script type="text/javascript" src="vendor/SegmentDisplay/excanvas.js"></script>
+            <![endif]-->
+        
+            <script type="text/javascript" src="vendor/SegmentDisplay/segment-display.js"></script>
+            <script type="text/javascript">
+                var display = new SegmentDisplay("shotclock");
+
+                display.pattern         = "##";
+                display.displayAngle    = 0;
+                display.digitHeight     = 17;
+                display.digitWidth      = 15;
+                display.digitDistance   = 3.6;
+                display.segmentWidth    = 3;
+                display.segmentDistance = 0.3;
+                display.segmentCount    = 7;
+                display.cornerType      = 3;
+                display.colorOn         = "#ff2c0f";
+                display.colorOff        = "#211002";
+              display.draw();  
+            </script>
+    </head>
+
+    <body>
+        <audio id="buzzer">
+            <source src="assets/buzzer.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        
+        <div id="wrapper">
+            <div id="container">
+                <canvas id="shotclock" width="100%" height="100%"></canvas>
+            </div>
+
+            <div id="buttons">
+                <button id="start" class="control">Start/Stop [space]</button>
+                <button id="reset" class="control">Reset [r]</button>
+                -
+                <button id="down" class="control square">-</button>
+                <button id="up" class="control square">+</button>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            defaultCounter = 309;
+
+            counter = defaultCounter;
+            timerId = null;
+
+            // stretch the canvas to fill the browser
+            function canvasSize()
+            {
+                var canvas = document.getElementById("shotclock");
+                canvas.width = $("#container").width();
+                canvas.height = $("#container").height();
+            }
+
+            // set the shotclock display
+            function setCounter()
+            {
+                canvasSize();
+
+                var strCounter = ' ' + parseInt(counter / 10).toString();
+
+                display.setValue(strCounter.substr(strCounter.length - 2));
+
+                $('#container').css({
+                    'background-color': 'black'
+                });
+            }
+
+            // blank display
+            function blankCounter()
+            {
+                canvasSize();
+
+                display.setValue('88');
+
+                $('#container').css({
+                    'background-color': '#ff2c0f'
+                });
+            }
+
+            // handle the 1/10 second event
+            function countDown()
+            {
+                if (counter < 10) {
+                    blankCounter();
+
+                    // play buzzer once
+                    if (counter>0) {
+                        $('#buzzer').trigger('play');
+                    }
+
+                    counter = 0;
+                }
+                else {
+                    counter -= 1;
+
+                    setCounter();
+                }
+            }
+
+            // increase the counter
+            function increaseCount()
+            {
+                counter += 10;
+                if (counter>defaultCounter) {
+                    counter = defaultCounter;
+                }
+
+                countDown();
+            }
+
+            // decrease the counter
+            function decreaseCount()
+            {
+                counter -= 10;
+                if (counter<10) {
+                    counter = 0;
+                }
+
+                countDown();
+            }
+
+            // start/stop counter
+            startStop = function() {
+                if (timerId) {
+                    clearInterval(timerId);
+                    timerId = null;
+                }
+                else {
+                    timerId = setInterval('countDown()', 100);
+                }
+            }
+
+            // reset the counter
+            reset = function () {
+                counter = defaultCounter;
+                setCounter();
+            }
+
+            // initial display of the counter
+            setCounter();
+
+            // start/stop to the canvas itself
+            $('#shotclock').click(startStop);
+
+            // attach events to the buttons
+            $('#start').click(startStop);
+
+            // reset
+            $('#reset').click(reset);
+
+            // decrease time
+            $('#down').click(decreaseCount);
+
+            // increase time
+            $('#up').click(increaseCount);
+
+            // key presses
+            $(document).keypress(function() {
+                if (event.which == 32) {
+                    startStop();
+                }
+                if (event.which == 82 || event.which == 114) {
+                    reset();
+                }
+            });
+        </script>
+    </body>
+</html>
