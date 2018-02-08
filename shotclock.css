@@ -5,11 +5,17 @@ body {
 #buttons {
     position: absolute;
     bottom: 0;
-    width: 100%;
-    border-top: 2px solid red;
     padding: 10px;
     margin: 0px;
     text-align: center;
+    opacity: 0.40;
+    width: 100%;
+    transition: opacity 0.5s;
+}
+
+#buttons:hover {
+    opacity: 1.00;
+    transition: opacity 0.5s;
 }
 
 .control {
@@ -17,6 +23,7 @@ body {
     height: 40px;
     padding: 0px;
     margin: 0px;
+    border: 0;
 }
 
 .square {

@@ -2,61 +2,61 @@
 
 function ShotClock(canvas_id)
 {
-    this.timerSeconds = 25; // how many seconds the timer is for
+    this.timerSeconds       = 25; // how many seconds the timer is for
 
-    this.autoScale = false; // automatically scale to screen
+    this.autoScale          = false; // automatically scale to screen
 
-    this.audio_id = null;   // id of the html5 audio to play
+    this.audio_id           = null;   // id of the html5 audio to play
 
     // default settings for the display
-    this.pattern         = "##";
-    this.displayAngle    = 0;
-    this.digitHeight     = 17;
-    this.digitWidth      = 15;
-    this.digitDistance   = 3.6;
-    this.segmentWidth    = 3;
-    this.segmentDistance = 0.3;
-    this.segmentCount    = 7;
-    this.cornerType      = 3;
-    this.colorOn         = "#ff2c0f";
-    this.colorOff        = "#211002";
+    this.pattern            = "##";
+    this.displayAngle       = 0;
+    this.digitHeight        = 17;
+    this.digitWidth         = 15;
+    this.digitDistance      = 3.6;
+    this.segmentWidth       = 3;
+    this.segmentDistance    = 0.3;
+    this.segmentCount       = 7;
+    this.cornerType         = 3;
+    this.colorOn            = "#ff2c0f";
+    this.colorOff           = "#211002";
 
     // private variables
-    var self = this;
-    this.display = null;
-    this.resetTime = null;
-    this.canvas_id = canvas_id;
-    this.canvas = null;
-    this.context = null;
-    this.remaining = null;
-    this.timer_id = null;
+    var self                = this;
+    this.display            = null;
+    this.resetTime          = null;
+    this.canvas_id          = canvas_id;
+    this.canvas             = null;
+    this.context            = null;
+    this.remaining          = null;
+    this.timer_id           = null;
 
     // set up function
     this.setup = function()
     {
         // initialise the canvas
-        this.canvas                 = document.getElementById(this.canvas_id);
-        this.context                = this.canvas.getContext('2d');
+        this.canvas                     = document.getElementById(this.canvas_id);
+        this.context                    = this.canvas.getContext('2d');
         this.resize();
         
         // setup the timer
-        this.resetTime              = (this.timerSeconds * 10) + 9;
-        this.remaining              = this.resetTime;
-        this.timer_id               = null;
+        this.resetTime                  = (this.timerSeconds * 10) + 9;
+        this.remaining                  = this.resetTime;
+        this.timer_id                   = null;
 
         // setup the segment display
         this.display = new SegmentDisplay(this.canvas_id);
-        this.display.pattern         = this.pattern;
-        this.display.displayAngle    = this.displayAngle;
-        this.display.digitHeight     = this.digitHeight;
-        this.display.digitWidth      = this.digitWidth;
-        this.display.digitDistance   = this.digitDistance;
-        this.display.segmentWidth    = this.segmentWidth;
-        this.display.segmentDistance = this.segmentDistance;
-        this.display.segmentCount    = this.segmentCount;
-        this.display.cornerType      = this.cornerType;
-        this.display.colorOn         = this.colorOn;
-        this.display.colorOff        = this.colorOff;
+        this.display.pattern            = this.pattern;
+        this.display.displayAngle       = this.displayAngle;
+        this.display.digitHeight        = this.digitHeight;
+        this.display.digitWidth         = this.digitWidth;
+        this.display.digitDistance      = this.digitDistance;
+        this.display.segmentWidth       = this.segmentWidth;
+        this.display.segmentDistance    = this.segmentDistance;
+        this.display.segmentCount       = this.segmentCount;
+        this.display.cornerType         = this.cornerType;
+        this.display.colorOn            = this.colorOn;
+        this.display.colorOff           = this.colorOff;
         this.display.draw();     
     
         this.display.setValue(this.displayValue());
@@ -67,8 +67,8 @@ function ShotClock(canvas_id)
     {
         // if set to automatically scale
         if (this.autoscale) {
-            this.context.canvas.width = window.innerWidth - 1;
-            this.context.canvas.height = window.innerHeight - 1;
+            this.context.canvas.width = window.innerWidth - 10;
+            this.context.canvas.height = window.innerHeight - 10;
         }
     }
 
@@ -107,6 +107,7 @@ function ShotClock(canvas_id)
             self.remaining = self.resetTime;
         }
 
+        self.remaining += 1;
         self.intHandler();
     }
 
@@ -118,6 +119,7 @@ function ShotClock(canvas_id)
             self.remaining = 9;
         }
 
+        self.remaining += 1;
         self.intHandler();
     }
 
