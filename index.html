@@ -2,31 +2,32 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Shot Clock</title>
-            <link rel="stylesheet" type="text/css" href="shotclock.css">
 
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="shotclock.css">
 
-            <!--[if IE]>
-                <script type="text/javascript" src="vendor/SegmentDisplay/excanvas.js"></script>
-            <![endif]-->
-        
-            <script type="text/javascript" src="vendor/SegmentDisplay/segment-display.js"></script>
-            <script type="text/javascript">
-                var display = new SegmentDisplay("shotclock");
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-                display.pattern         = "##";
-                display.displayAngle    = 0;
-                display.digitHeight     = 17;
-                display.digitWidth      = 15;
-                display.digitDistance   = 3.6;
-                display.segmentWidth    = 3;
-                display.segmentDistance = 0.3;
-                display.segmentCount    = 7;
-                display.cornerType      = 3;
-                display.colorOn         = "#ff2c0f";
-                display.colorOff        = "#211002";
-              display.draw();  
-            </script>
+        <!--[if IE]>
+            <script type="text/javascript" src="vendor/SegmentDisplay/excanvas.js"></script>
+        <![endif]-->
+    
+        <script type="text/javascript" src="vendor/SegmentDisplay/segment-display.js"></script>
+        <script type="text/javascript">
+            var display = new SegmentDisplay("shotclock");
+
+            display.pattern         = "##";
+            display.displayAngle    = 0;
+            display.digitHeight     = 17;
+            display.digitWidth      = 15;
+            display.digitDistance   = 3.6;
+            display.segmentWidth    = 3;
+            display.segmentDistance = 0.3;
+            display.segmentCount    = 7;
+            display.cornerType      = 3;
+            display.colorOn         = "#ff2c0f";
+            display.colorOff        = "#211002";
+            display.draw();  
+        </script>
     </head>
 
     <body>
