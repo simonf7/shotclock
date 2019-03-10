@@ -1,76 +1,93 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Shot Clock</title>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Shot Clock</title>
 
-        <link rel="stylesheet" type="text/css" href="shotclock.css">
+    <link rel="stylesheet" type="text/css" href="shotclock.css" />
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-        <!--[if IE]>
-            <script type="text/javascript" src="vendor/SegmentDisplay/excanvas.js"></script>
-        <![endif]-->
-    
-        <script type="text/javascript" src="vendor/SegmentDisplay/segment-display.js"></script>
-        <script type="text/javascript" src="shotclock.js"></script>
-    </head>
+    <!--[if IE]>
+      <script
+        type="text/javascript"
+        src="vendor/SegmentDisplay/excanvas.js"
+      ></script>
+    <![endif]-->
 
-    <body>
-        <audio id="buzzer">
-            <source src="assets/buzzer.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+    <script
+      type="text/javascript"
+      src="vendor/SegmentDisplay/segment-display.js"
+    ></script>
+    <script type="text/javascript" src="shotclock.js"></script>
+  </head>
 
-        <canvas id="shotclock"></canvas>
-        
-        <div id="buttons">
-            <button id="start" class="control">Start/Stop [space]</button>
-            <button id="reset" class="control">Reset [r]</button>
-            -
-            <button id="down" class="control square">-</button>
-            <button id="up" class="control square">+</button>
-        </div>
- 
-        <script type="text/javascript">
-            var shotclock = new ShotClock('shotclock');
-            
-            // see if the number of seconds has been supplied after the # in the url
-            var hash = parseInt(location.hash.replace('#', ''));
-            if (typeof hash==='number' && (hash%1)===0 && hash>0 && hash<100) {
-                shotclock.timerSeconds = hash;
-            } else {
-                // else default 25 seconds
-                shotclock.timerSeconds = 25;
-            }
-            shotclock.audio_id = 'buzzer';
-            shotclock.autoscale = true;
-            shotclock.setup();
+  <body>
+    <audio id="buzzer">
+      <source src="assets/buzzer.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
 
-            // start/stop to the canvas itself
-            $('#shotclock').click(shotclock.startStop);
+    <canvas id="shotclock"></canvas>
 
-            // attach events to the buttons
-            $('#start').click(shotclock.startStop);
+    <div id="buttons">
+      <button id="start" class="control">Start/Stop [space]</button>
+      <button id="reset" class="control">Reset [r]</button>
+      -
+      <button id="down" class="control square">-</button>
+      <button id="up" class="control square">+</button>
+    </div>
 
-            // reset
-            $('#reset').click(shotclock.reset);
+    <script type="text/javascript">
+      var shotclock = new ShotClock("shotclock");
 
-            // decrease time
-            $('#down').click(shotclock.decrease);
+      // see if the number of seconds has been supplied after the # in the url
+      var hash = parseInt(location.hash.replace("#", ""));
+      if (
+        typeof hash === "number" &&
+        hash % 1 === 0 &&
+        hash > 0 &&
+        hash < 100
+      ) {
+        shotclock.timerSeconds = hash;
+      } else {
+        // else default 25 seconds
+        shotclock.timerSeconds = 25;
+      }
+      shotclock.audio_id = "buzzer";
+      shotclock.autoscale = true;
+      shotclock.setup();
 
-            // increase time
-            $('#up').click(shotclock.increase);
+      // start/stop to the canvas itself
+      $("#shotclock").click(shotclock.startStop);
 
-            // key presses
-            $(document).keypress(function() {
-                if (event.which == 32) {
-                    shotclock.startStop();
-                }
-                if (event.which == 82 || event.which == 114) {
-                    shotclock.reset();
-                }
-            });
-        </script>
-    </body>
+      // attach events to the buttons
+      $("#start").click(shotclock.startStop);
+
+      // reset
+      $("#reset").click(shotclock.reset);
+
+      // decrease time
+      $("#down").click(shotclock.decrease);
+
+      // increase time
+      $("#up").click(shotclock.increase);
+
+      // key presses
+      $(document).keypress(function() {
+        if (event.which == 32) {
+          shotclock.startStop();
+        }
+        if (event.which == 82 || event.which == 114) {
+          shotclock.reset();
+        }
+        if (event.which == 43 || event.which == 61) {
+          shotclock.increase();
+        }
+        if (event.which == 45) {
+          shotclock.decrease();
+        }
+      });
+    </script>
+  </body>
 </html>
