@@ -1,8 +1,21 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
 body {
   background-color: black;
+  overflow: none;
+}
+
+#shotclock {
+  position: absolute;
+  height: 100%;
   width: 100%;
-  height: 100vh;
-  overflow-y: none;
+  top: 0;
+  left: 0;
 }
 
 #buttons {
@@ -18,7 +31,6 @@ body {
 
 #buttons:hover {
   opacity: 1;
-  transition: opacity 0.5s;
 }
 
 .control {
