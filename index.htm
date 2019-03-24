@@ -75,7 +75,15 @@
     </div>
 
     <script type="text/javascript">
-      UpUp.start();
+      UpUp.start({
+        'content-url': 'index.htm',
+        assets: [
+          'shotclock.css',
+          'shotclock.js',
+          'vendor/SegmentDisplay/segment-display.js',
+          'assets/buzzer.mp3'
+        ]
+      });
 
       var shotclock = new ShotClock('shotclock');
 
