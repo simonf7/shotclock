@@ -73,7 +73,7 @@
 
     <script type="text/javascript">
       UpUp.start({
-        'cache-vesion': 'v1',
+        'cache-vesion': 'v2',
         'content-url': 'index.htm',
         assets: [
           'shotclock.css',
@@ -123,6 +123,11 @@
             shotclock.decrease();
             break;
         }
+      });
+
+      // resize
+      window.addEventListener('resize', function(e) {
+        shotclock.resize();
       });
     </script>
   </body>

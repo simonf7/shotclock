@@ -8,7 +8,7 @@ function ShotClock(canvas_id) {
   this.audio_id = null; // id of the html5 audio to play
 
   // default settings for the display
-  this.pattern = "##";
+  this.pattern = '##';
   this.displayAngle = 0;
   this.digitHeight = 17;
   this.digitWidth = 15;
@@ -17,8 +17,8 @@ function ShotClock(canvas_id) {
   this.segmentDistance = 0.3;
   this.segmentCount = 7;
   this.cornerType = 3;
-  this.colorOn = "#ff2c0f";
-  this.colorOff = "#211002";
+  this.colorOn = '#ff2c0f';
+  this.colorOff = '#211002';
 
   // private variables
   var self = this;
@@ -34,7 +34,7 @@ function ShotClock(canvas_id) {
   this.setup = function() {
     // initialise the canvas
     this.canvas = document.getElementById(this.canvas_id);
-    this.context = this.canvas.getContext("2d");
+    this.context = this.canvas.getContext('2d');
     this.resize();
 
     // setup the timer
@@ -46,6 +46,7 @@ function ShotClock(canvas_id) {
     this.display = new SegmentDisplay(this.canvas_id);
     this.display.pattern = this.pattern;
     this.display.displayAngle = this.displayAngle;
+    this.display.displayId = this.canvas_id;
     this.display.digitHeight = this.digitHeight;
     this.display.digitWidth = this.digitWidth;
     this.display.digitDistance = this.digitDistance;
@@ -66,12 +67,15 @@ function ShotClock(canvas_id) {
     if (this.autoscale) {
       this.context.canvas.width = window.innerWidth - 10;
       this.context.canvas.height = window.innerHeight - 10;
+      if (!!this.display) {
+        this.display.draw();
+      }
     }
   };
 
   // take the remaining time and create the display value
   this.displayValue = function() {
-    var strCounter = " " + parseInt(this.remaining / 10).toString();
+    var strCounter = ' ' + parseInt(this.remaining / 10).toString();
 
     return strCounter.substr(strCounter.length - 2);
   };
@@ -82,7 +86,7 @@ function ShotClock(canvas_id) {
       self.remaining -= 1;
       self.display.setValue(self.displayValue());
     } else {
-      self.display.setValue("--");
+      self.display.setValue('--');
 
       // play buzzer once
       if (self.remaining > 0 && self.audio_id != null) {
