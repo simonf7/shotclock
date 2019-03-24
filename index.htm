@@ -39,12 +39,12 @@
     </div>
 
     <script type="text/javascript">
-      var shotclock = new ShotClock("shotclock");
+      var shotclock = new ShotClock('shotclock');
 
       // see if the number of seconds has been supplied after the # in the url
-      var hash = parseInt(location.hash.replace("#", ""));
+      var hash = parseInt(location.hash.replace('#', ''));
       if (
-        typeof hash === "number" &&
+        typeof hash === 'number' &&
         hash % 1 === 0 &&
         hash > 0 &&
         hash < 100
@@ -54,24 +54,24 @@
         // else default 25 seconds
         shotclock.timerSeconds = 25;
       }
-      shotclock.audio_id = "buzzer";
+      shotclock.audio_id = 'buzzer';
       shotclock.autoscale = true;
       shotclock.setup();
 
       // start/stop to the canvas itself
-      $("#shotclock").click(shotclock.startStop);
+      $('#shotclock').click(shotclock.startStop);
 
       // attach events to the buttons
-      $("#start").click(shotclock.startStop);
+      $('#start').click(shotclock.startStop);
 
       // reset
-      $("#reset").click(shotclock.reset);
+      $('#reset').click(shotclock.reset);
 
       // decrease time
-      $("#down").click(shotclock.decrease);
+      $('#down').click(shotclock.decrease);
 
       // increase time
-      $("#up").click(shotclock.increase);
+      $('#up').click(shotclock.increase);
 
       // key presses
       $(document).keypress(function() {
@@ -87,6 +87,11 @@
         if (event.which == 45) {
           shotclock.decrease();
         }
+      });
+
+      // prevent buttons keeping focus
+      $('.control').mouseup(function() {
+        this.blur();
       });
     </script>
   </body>
