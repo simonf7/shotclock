@@ -22,8 +22,6 @@
       ></script>
     <![endif]-->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     <script
       type="text/javascript"
       src="vendor/SegmentDisplay/segment-display.js"
@@ -37,14 +35,42 @@
       Your browser does not support the audio element.
     </audio>
 
-    <canvas id="shotclock"></canvas>
+    <canvas id="shotclock" onclick="shotclock.startStop();"></canvas>
 
     <div id="buttons">
-      <button id="start" class="control">Start/Stop [space]</button>
-      <button id="reset" class="control">Reset [r]</button>
+      <button
+        id="start"
+        class="control"
+        onclick="shotclock.startStop();"
+        onmouseup="this.blur();"
+      >
+        Start/Stop [space]
+      </button>
+      <button
+        id="reset"
+        class="control"
+        onclick="shotclock.reset();"
+        onmouseup="this.blur();"
+      >
+        Reset [r]
+      </button>
       -
-      <button id="down" class="control square">-</button>
-      <button id="up" class="control square">+</button>
+      <button
+        id="down"
+        class="control square"
+        onclick="shotclock.decrease();"
+        onmouseup="this.blur();"
+      >
+        -
+      </button>
+      <button
+        id="up"
+        class="control square"
+        onclick="shotclock.increase();"
+        onmouseup="this.blur();"
+      >
+        +
+      </button>
     </div>
 
     <script type="text/javascript">
@@ -67,40 +93,27 @@
       shotclock.autoscale = true;
       shotclock.setup();
 
-      // start/stop to the canvas itself
-      $('#shotclock').click(shotclock.startStop);
-
-      // attach events to the buttons
-      $('#start').click(shotclock.startStop);
-
-      // reset
-      $('#reset').click(shotclock.reset);
-
-      // decrease time
-      $('#down').click(shotclock.decrease);
-
-      // increase time
-      $('#up').click(shotclock.increase);
-
       // key presses
-      $(document).keypress(function() {
-        if (event.which == 32) {
-          shotclock.startStop();
-        }
-        if (event.which == 82 || event.which == 114) {
-          shotclock.reset();
-        }
-        if (event.which == 43 || event.which == 61) {
-          shotclock.increase();
-        }
-        if (event.which == 45) {
-          shotclock.decrease();
-        }
-      });
+      document.addEventListener('keypress', function(e) {
+        switch (e.keyCode) {
+          case 32:
+            shotclock.startStop();
+            break;
 
-      // prevent buttons keeping focus
-      $('.control').mouseup(function() {
-        this.blur();
+          case 82:
+          case 114:
+            shotclock.reset();
+            break;
+
+          case 43:
+          case 61:
+            shotclock.increase();
+            break;
+
+          case 45:
+            shotclock.decrease();
+            break;
+        }
       });
     </script>
   </body>
